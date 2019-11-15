@@ -16,7 +16,7 @@ module.exports = {
   mode: "production", // 生产模式
   devtool: "source-map", // source-map
   entry: {
-    app: resolve("index.js")
+    app: resolve("src/index.js")
   },
   output: {
     // filename: "[name].[hash:8].js",
