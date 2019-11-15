@@ -39,15 +39,15 @@ module.exports = {
       {
         test: /\.scss/,
         use: [
-          require.resolve('style-loader'),
+          require.resolve("style-loader"),
           {
-            loader: require.resolve('css-loader'),
+            loader: require.resolve("css-loader"),
             options: {
               importLoaders: 2
             }
           },
-          require.resolve('postcss-loader'),
-          require.resolve('sass-loader')
+          require.resolve("postcss-loader"),
+          require.resolve("sass-loader")
         ],
         exclude: /node_modules/,
         include: resolve("src")
@@ -81,11 +81,11 @@ module.exports = {
       filename: resolve("dist/index.html"),
       template: resolve("static/index.html")
     }),
-
-    new CleanWebpackPlugin(), // 清空 输出目录原始文件
-
+    // 清空 输出目录原始文件
+    new CleanWebpackPlugin(),
+    // 热模块替换插件
     new webpack.HotModuleReplacementPlugin(),
-
+    // 使用模块的路径，而不是数字标识符作为ID，避免解析顺序引起的 hash 变化
     new webpack.NamedModulesPlugin()
   ],
 

@@ -8,7 +8,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 清理输出�
 
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-const optimizeCss = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const resolve = dir => path.join(__dirname, "../", dir);
 
@@ -39,7 +39,7 @@ module.exports = {
       },
 
       {
-        test: /\.scss/,
+        test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader", "postcss-loader"],
         exclude: /node_modules/,
         include: resolve("src")
@@ -78,8 +78,9 @@ module.exports = {
 
     new BundleAnalyzerPlugin(),
 
-    new optimizeCss(),
-
+    new OptimizeCSSAssetsPlugin({
+      assetNameRegExp: /\.(scss|css)$/g,
+    })
     // new CommonsChunkPlugin({
     //   name: ["common","jquery","vue","load"],
     //   minChunks:2
@@ -89,32 +90,6 @@ module.exports = {
   //splitChunks 默认配置
   optimization: {
     runtimeChunk: "single",
-    // splitChunks:{
-    //   chunks: 'async',
-    //   minSize: 30000,
-    //   minChunks: 1,
-    //   maxAsyncRequests: 5,
-    //   maxInitialRequests: 3,
-    //   name: false,
-    //   cacheGroups: {
-    //     vendor: {
-    //       name: 'vendor',
-    //       chunks: 'initial',
-    //       priority: -10,
-    //       reuseExistingChunk: false,
-    //       test: /node_modules\/(.*)\.js/
-    //     },
-    //     styles: {
-    //       name: 'styles',
-    //       test: /\.(scss|css)$/,
-    //       chunks: 'all',
-    //       minChunks: 1,
-    //       reuseExistingChunk: true,
-    //       enforce: true
-    //     }
-    //   }
-    // }
-
     splitChunks: {
       chunks: "all",
       maxInitialRequests: Infinity,
@@ -125,6 +100,12 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
           chunks: "all"
+        },
+        styles: {
+          name: 'styles',
+          test: /\.(scss|css)$/,
+          chunks: 'all',
+          enforce: true
         }
       }
     }
