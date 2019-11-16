@@ -1,36 +1,36 @@
-const webpack = require('webpack');
+const webpack = require("webpack");
 
-const webpackDevServer = require('webpack-dev-server');
+const webpackDevServer = require("webpack-dev-server");
 
-const config = require('../config/webpack.config.dev');
-
+const config = require("../config/webpack.config.dev");
+// 获取devServer基本配置
 const devServerOptions = Object.assign({}, config.devServer, {
+  // 是否打开默认浏览器
+  open: true,
+  // 启用gzip
+  compress: true,
 
-    open: true,
+  contentBase: "./dist",
 
-    compress: true, // 启用gzip
+  stats: {
+    colors: true
+  },
 
-    contentBase: './dist',
+  publicPath: "/",
+  // 文件更改将触发整个页面重新加载
+  watchContentBase: true,
+  // 启动模块热更新
+  hot: true,
 
-    stats: {
-        colors: true,
-    },
-
-    publicPath: '/',
-
-    watchContentBase: true, // 文件更改将触发整个页面重新加载
-
-    hot: true,// 启动模块热更新
-
-    host: 'localhost',
+  host: "localhost"
 });
+// node启动 热更新 需配置该项
+webpackDevServer.addDevServerEntrypoints(config, devServerOptions);
 
-webpackDevServer.addDevServerEntrypoints(config, devServerOptions); // node启动 热更新 需配置该项
- 
 const compiler = webpack(config);
 
 const devServer = new webpackDevServer(compiler, devServerOptions);
 
-devServer.listen(8080, 'localhost', () => {
-    console.log('listen 8080 to beginning!');
-})
+devServer.listen(8080, "localhost", () => {
+  console.log("listen to 8080!");
+});

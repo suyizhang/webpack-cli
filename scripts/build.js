@@ -5,15 +5,12 @@ const config = require("../config/webpack.config.prod");
 const compiler = webpack(config);
 
 compiler.run((err, stats) => {
-
   if (err) {
     throw err;
   }
 
   process.stdout.write(
-
     stats.toString({
-
       colors: true,
 
       modules: false,
@@ -23,9 +20,6 @@ compiler.run((err, stats) => {
       chunks: false,
 
       chunkModules: false
-
     }) + "\n\n"
-
   );
-  
 });

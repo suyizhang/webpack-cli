@@ -1,41 +1,13 @@
-import React from 'react'
-
-import Home from '../Home'
+import React from "react";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-
-        super(props);
-    }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     return null;
-    // }
-
-    componentDidMount() {
-
-        this.queryList();
-    }
-
-    queryList = () => {
-
-        console.log(1);
-    }
-
-
-    render() {
-
-        return (
-
-            <div className='App-view'>
-                <Home/>
-            </div>
-
-        )
-
-    }
-
+  render() {
+    return <div className="App-view"></div>;
+  }
 }
 
 export default App;

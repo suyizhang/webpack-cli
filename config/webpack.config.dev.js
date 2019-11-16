@@ -76,7 +76,7 @@ module.exports = {
 
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader'
+        loader: "url-loader"
       }
     ]
   },
@@ -91,12 +91,13 @@ module.exports = {
     // 热模块替换插件
     new webpack.HotModuleReplacementPlugin(),
     // 使用模块的路径，而不是数字标识符作为ID，避免解析顺序引起的 hash 变化
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    // 编译出现错误时,跳过输出阶段,确保输出资源不会包含错误
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 
   devServer: {
     // dev server
-    // 使用 node 运行该文件时 devServer失效
     host: "localhost",
     open: true
   }
