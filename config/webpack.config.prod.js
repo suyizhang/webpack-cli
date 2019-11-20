@@ -19,74 +19,8 @@ const resolve = dir => path.join(__dirname, "../", dir);
 
 module.exports = merge(baseWebpackConfig, {
   mode: "production", // 生产模式
+
   devtool: "source-map", // source-map
-
-  // entry: {
-  //   app: resolve("src/index.js")
-  // },
-
-  // output: {
-  //   // filename: "[name].[hash:8].js",
-  //   filename: "./static/[name].[hash:8].js",
-  //   // chunkFilename: "[name].[chunkhash:8].chunk.js",
-  //   chunkFilename: "./static/[name].[chunkhash:8].chunk.js",
-  //   path: resolve("dist")
-  // },
-
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.(js|jsx)$/,
-  //       exclude: /node_modules/,
-  //       loader: require.resolve("babel-loader")
-  //     },
-
-  //     {
-  //       test: /\.less$/,
-  //       // exclude: /node_modules/,
-  //       use: [
-  //         require.resolve("style-loader"),
-  //         require.resolve("css-loader"),
-  //         require.resolve("postcss-loader"),
-  //         {
-  //           loader: require.resolve("less-loader"),
-  //           options: {
-  //             modules: false,
-  //             modifyVars: {
-  //               // "@primary-color": "#f9c700"
-  //             }
-  //           }
-  //         }
-  //       ]
-  //     },
-
-  //     {
-  //       test: /\.(png|jpg|gif)$/,
-  //       use: [
-  //         {
-  //           loader: "file-loader",
-  //           options: {
-  //             name: "[path][name].[ext]"
-  //           }
-  //         }
-  //       ]
-  //     },
-
-  //     {
-  //       test: /\.svg/,
-  //       use: [
-  //         {
-  //           loader: "svg-inline-loader"
-  //         }
-  //       ]
-  //     },
-
-  //     {
-  //       test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-  //       loader: "url-loader"
-  //     }
-  //   ]
-  // },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -101,10 +35,6 @@ module.exports = merge(baseWebpackConfig, {
     new OptimizeCSSAssetsPlugin({
       assetNameRegExp: /\.(scss|css)$/g
     })
-    // new CommonsChunkPlugin({
-    //   name: ["common","jquery","vue","load"],
-    //   minChunks:2
-    // })
   ],
 
   //splitChunks 默认配置
