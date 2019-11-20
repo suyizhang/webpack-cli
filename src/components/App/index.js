@@ -1,4 +1,5 @@
 import React from "react";
+import './index.less';
 
 class App extends React.Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="App-view"></div>;
+    return <div className="App-view">12312</div>;
   }
 }
 

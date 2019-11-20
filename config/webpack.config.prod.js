@@ -2,76 +2,91 @@
 
 const path = require("path");
 
+const merge = require('webpack-merge');
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // 清理输出文件夹
 
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+const baseWebpackConfig = require('./webpack.config.base');
+
 
 const resolve = dir => path.join(__dirname, "../", dir);
 
-module.exports = {
+module.exports = merge(baseWebpackConfig, {
   mode: "production", // 生产模式
   devtool: "source-map", // source-map
-  entry: {
-    app: resolve("src/index.js")
-  },
-  output: {
-    // filename: "[name].[hash:8].js",
-    filename: "./static/[name].[hash:8].js",
-    // chunkFilename: "[name].[chunkhash:8].chunk.js",
-    chunkFilename: "./static/[name].[chunkhash:8].chunk.js",
-    path: resolve("dist")
-  },
 
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: require.resolve("babel-loader")
-        // options: {
-        //   presets: ["@babel/preset-env", "@babel/preset-react"], // jsx转为js函数
-        //   plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]]
-        // }
-      },
+  // entry: {
+  //   app: resolve("src/index.js")
+  // },
 
-      {
-        test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader", "postcss-loader"],
-        exclude: /node_modules/,
-        include: resolve("src")
-      },
+  // output: {
+  //   // filename: "[name].[hash:8].js",
+  //   filename: "./static/[name].[hash:8].js",
+  //   // chunkFilename: "[name].[chunkhash:8].chunk.js",
+  //   chunkFilename: "./static/[name].[chunkhash:8].chunk.js",
+  //   path: resolve("dist")
+  // },
 
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[path][name].[ext]"
-            }
-          }
-        ]
-      },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.(js|jsx)$/,
+  //       exclude: /node_modules/,
+  //       loader: require.resolve("babel-loader")
+  //     },
 
-      {
-        test: /\.svg/,
-        use: [
-          {
-            loader: "svg-inline-loader"
-          }
-        ]
-      },
+  //     {
+  //       test: /\.less$/,
+  //       // exclude: /node_modules/,
+  //       use: [
+  //         require.resolve("style-loader"),
+  //         require.resolve("css-loader"),
+  //         require.resolve("postcss-loader"),
+  //         {
+  //           loader: require.resolve("less-loader"),
+  //           options: {
+  //             modules: false,
+  //             modifyVars: {
+  //               // "@primary-color": "#f9c700"
+  //             }
+  //           }
+  //         }
+  //       ]
+  //     },
 
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader'
-      }
-    ]
-  },
+  //     {
+  //       test: /\.(png|jpg|gif)$/,
+  //       use: [
+  //         {
+  //           loader: "file-loader",
+  //           options: {
+  //             name: "[path][name].[ext]"
+  //           }
+  //         }
+  //       ]
+  //     },
+
+  //     {
+  //       test: /\.svg/,
+  //       use: [
+  //         {
+  //           loader: "svg-inline-loader"
+  //         }
+  //       ]
+  //     },
+
+  //     {
+  //       test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+  //       loader: "url-loader"
+  //     }
+  //   ]
+  // },
 
   plugins: [
     new HtmlWebpackPlugin({
@@ -84,7 +99,7 @@ module.exports = {
     new BundleAnalyzerPlugin(),
 
     new OptimizeCSSAssetsPlugin({
-      assetNameRegExp: /\.(scss|css)$/g,
+      assetNameRegExp: /\.(scss|css)$/g
     })
     // new CommonsChunkPlugin({
     //   name: ["common","jquery","vue","load"],
@@ -107,12 +122,12 @@ module.exports = {
           chunks: "all"
         },
         styles: {
-          name: 'styles',
+          name: "styles",
           test: /\.(scss|css)$/,
-          chunks: 'all',
+          chunks: "all",
           enforce: true
         }
       }
     }
   }
-};
+});
